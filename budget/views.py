@@ -6,9 +6,11 @@ from django.utils.text import slugify
 from .forms import ExpenseForm
 import json
 
+
 def project_list(request):
     project_list = Project.objects.all()
     return render(request, 'budget/project-list.html', {'project_list': project_list})
+
 
 def project_detail(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
@@ -35,9 +37,12 @@ def project_detail(request, project_slug):
             )
 
     elif request.method == 'DELETE':
-        id = json.loads(request.body)['id']
-        expense = Expense.objects.get(id=id)
-        expense.delete()
+        try:
+            id = json.loads(request.body)['id']
+            expense = Expense.objects.get(id=id)
+            expense.delete()
+        except:
+            return HttpResponse(status=404)
 
         return HttpResponse(status=204)
 
