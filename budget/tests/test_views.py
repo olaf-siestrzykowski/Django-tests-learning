@@ -98,5 +98,5 @@ class TestView(TestCase):
         self.assertEquals(first_category.name, 'design')
 
         second_category = Category.objects.get(id=2)
-        self.assertEquals(first_category.project, project2)
-        self.assertEquals(first_category.name, 'development')
+        self.assertEquals(second_category.project, project2)
+        self.assertEquals(second_category.name, 'development')
